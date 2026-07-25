@@ -3,24 +3,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { Bot, Mic, Lightbulb } from "lucide-react";
+import { CustomButton } from "@/components/ui/custom-button";
+import { Textarea } from "@/components/ui/textarea";
+import { Container } from "@/components/ui/container";
 
-// ==========================================
-// 1. Reusable Container Component
-// ==========================================
-interface ContainerProps {
-  children: React.ReactNode;
-  className?: string;
-}
 
-export const Container = ({ children, className = "" }: ContainerProps) => {
-  return (
-    <div
-      className={`max-w-[1280px] mx-auto px-[50.6px] max-md:px-4 ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 // ==========================================
 // 2. Reusable AI Badge with Custom Spark Icon Image
@@ -33,6 +20,7 @@ const AIBadge = ({ text }: { text: string }) => {
           src="/image/spark.png" // Served from public/image/spark_icon.jpg
           alt="Spark Icon"
           fill
+          sizes="16px"
           className="object-contain"
         />
       </div>
@@ -62,6 +50,8 @@ const TrustAvatars = () => {
 // ==========================================
 // 4. Reusable Symptom Input Form Subcomponent
 // ==========================================
+
+
 const SymptomInputCard = () => {
   const [symptoms, setSymptoms] = useState("");
 
@@ -79,28 +69,29 @@ const SymptomInputCard = () => {
 
       {/* Input Box Area */}
       <div className="relative mb-6">
-        <textarea
+        <Textarea
           rows={4}
           value={symptoms}
           onChange={(e) => setSymptoms(e.target.value)}
           placeholder="E.g., I've been having mild chest pain and shortness of breath for two days..."
-          className="w-full rounded-2xl border border-gray-200 p-4 text-sm sm:text-base text-[#181C1C] placeholder:text-gray-400 focus:outline-none focus:border-[#005C55] transition-colors resize-none pr-28"
+          className="w-full rounded-2xl border border-gray-200 p-4 text-sm sm:text-base text-[#181C1C] placeholder:text-gray-400 resize-none pr-28"
         />
         {/* Speech Indicator */}
-        <div className="absolute bottom-3 right-3 flex items-center gap-1 text-xs text-gray-400 font-normal">
+        <div className="absolute bottom-3 right-3 flex items-center gap-1 text-xs text-gray-400 font-normal pointer-events-none">
           <Mic className="w-3.5 h-3.5" />
           <span>Speech ready</span>
         </div>
       </div>
 
-      {/* Action Button */}
-      <button
+      {/* Action Button using CustomButton */}
+      <CustomButton
         type="button"
-        className="w-full bg-[#005C55] hover:bg-[#004843] text-white font-medium py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2.5 transition-colors shadow-sm text-sm sm:text-base cursor-pointer"
+        customVariant="primary"
+        leftIcon={<Bot className="w-5 h-5 stroke-[2]" />}
+        className="w-full bg-[#005C55] hover:bg-[#004843] rounded-2xl py-3.5 sm:py-4 text-sm sm:text-base font-medium"
       >
-        <Bot className="w-5 h-5 stroke-[2]" />
-        <span>Analyze & Match Specialists</span>
-      </button>
+        Analyze & Match Specialists
+      </CustomButton>
 
       {/* Footer Text */}
       <p className="text-center text-xs text-gray-500 font-normal mt-4">
@@ -110,51 +101,7 @@ const SymptomInputCard = () => {
   );
 };
 
-// ==========================================
-// 5. Main AI Suggestion Section Component
-// ==========================================
-// export default function AISuggestionSection() {
-//   return (
-//     <section className="relative overflow-hidden bg-[#E8F3F1] py-16 sm:py-24">
-//       {/* Background Decorative Starburst Watermark using your spark icon */}
-//       <div className="absolute top-15 right-95 w-15 h-15 opacity-10 pointer-events-none select-none">
-//         <Image
-//           src="/image/spark.png"
-//           alt="Background Spark Watermark"
-//           fill
-//           className="object-contain"
-//         />
-//       </div>
 
-//       <Container className="relative z-10">
-//         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-//           {/* Left Column: Heading & Content */}
-//           <div className="lg:col-span-6 flex flex-col justify-center">
-//             <AIBadge text="AI-Powered Matching" />
-
-//             <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-[#181C1C] leading-[1.2] tracking-tight mb-6">
-//               Not sure which specialist to see?{" "}
-//               <span className="text-[#005C55]">Our AI can help.</span>
-//             </h2>
-
-//             <p className="text-base sm:text-lg text-[#3E4947] font-normal leading-relaxed mb-4 max-w-lg">
-//               Our intelligent health assistant analyzes your symptoms to match you with the most qualified specialists in our network, ensuring you get the right care from the start.
-//             </p>
-
-//             <TrustAvatars />
-//           </div>
-
-//           {/* Right Column: AI Symptom Box */}
-//           <div className="lg:col-span-6">
-//             <SymptomInputCard />
-//           </div>
-
-//         </div>
-//       </Container>
-//     </section>
-//   );
-// }
 
 
 export default function AISuggestionSection() {
@@ -188,6 +135,7 @@ export default function AISuggestionSection() {
                 src="/image/spark.png"
                 alt="Background Spark Watermark"
                 fill
+                sizes="(max-width: 640px) 64px, 96px"
                 className="object-contain"
               />
             </div>

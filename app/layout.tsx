@@ -22,8 +22,8 @@ export default function RootLayout({
 }) {
   return (
     // 2. Apply font class & variable to <html> or <body>
-    <html lang="en" className={`${manrope.variable} font-sans`}>
-      <body className={manrope.className}>
+    <html lang="en" className={`${manrope.variable} font-sans`} suppressHydrationWarning>
+      <body className={manrope.className} suppressHydrationWarning>
         {children}
       </body>
     </html>

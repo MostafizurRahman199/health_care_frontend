@@ -3,14 +3,7 @@
 import React from "react";
 import { HeartPulse, Baby, Brain, Bone, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/container";
-
-// ==========================================
-// 1. Reusable Container Component
-// ==========================================
-interface ContainerProps {
-  children: React.ReactNode;
-  className?: string;
-}
+import { SectionHeader } from "@/components/ui/section-header";
 
 
 
@@ -55,15 +48,10 @@ export default function SpecialtiesSection() {
     <section className="bg-white py-16 lg:py-24">
       <Container>
         {/* Header Section */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#181C1C] tracking-tight mb-4">
-            Our Medical Specialties
-          </h2>
-          <p className="text-base sm:text-lg text-[#3E4947] font-normal leading-relaxed">
-            We connect you with world-class specialists across a wide range of
-            medical fields.
-          </p>
-        </div>
+        <SectionHeader
+          title="Our Medical Specialties"
+          description="We connect you with world-class specialists across a wide range of medical fields."
+        />
 
         {/* Specialties Grid (5 Columns) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 sm:gap-6">

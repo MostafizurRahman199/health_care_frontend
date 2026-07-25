@@ -8,13 +8,6 @@ import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
 import { CustomButton } from "@/components/ui/custom-button";
 
-// ==========================================
-// 1. Reusable Container Component
-// ==========================================
-interface ContainerProps {
-  children: React.ReactNode;
-  className?: string;
-}
 
 
 // ==========================================

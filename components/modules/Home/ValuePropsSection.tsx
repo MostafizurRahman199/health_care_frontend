@@ -2,24 +2,9 @@
 
 import React from "react";
 import { Video, ClipboardList, FolderKanban, Banknote } from "lucide-react";
+import { Container } from "@/components/ui/container";
 
-// ==========================================
-// 1. Reusable Container Component
-// ==========================================
-interface ContainerProps {
-  children: React.ReactNode;
-  className?: string;
-}
 
-export const Container = ({ children, className = "" }: ContainerProps) => {
-  return (
-    <div
-      className={`max-w-[1280px] mx-auto px-[50.6px] max-md:px-4 ${className}`}
-    >
-      {children}
-    </div>
-  );
-};
 
 // ==========================================
 // 2. Types & Data
