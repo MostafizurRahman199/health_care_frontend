@@ -4,9 +4,11 @@ import PublicNavbar from "@/components/shared/PublicNavbar";
 const Commonlayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-    <PublicNavbar/>
-      {children}
-      <Footer/>
+      <PublicNavbar />
+      <main id="main-content">
+        {children}
+      </main>
+      <Footer />
     </>
   );
 };

@@ -14,7 +14,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 
 
 // ==========================================
-// 2. Data & Types (9 Unique Cards)
+// 1. Data & Types (9 Unique Cards)
 // ==========================================
 interface TestimonialItem {
   id: number;
@@ -110,7 +110,7 @@ const testimonialsData: TestimonialItem[] = [
 ];
 
 // ==========================================
-// 3. Reusable Testimonial Card Subcomponent
+// 2. Reusable Testimonial Card Subcomponent
 // ==========================================
 const TestimonialCard = ({
   quote,
@@ -143,7 +143,7 @@ const TestimonialCard = ({
       <div className="flex items-center gap-4 pt-2">
         {/* Circle Avatar Badge */}
         <div
-          className={`w-12 h-12 rounded-full ${avatarBg} text-white font-bold text-sm flex items-center justify-center shrink-0`}
+          className={`w-12 h-12 rounded-full ${avatarBg} text-[#181C1C] font-bold text-sm flex items-center justify-center shrink-0`}
         >
           {initials}
         </div>
@@ -163,7 +163,7 @@ const TestimonialCard = ({
 };
 
 // ==========================================
-// 4. Main Testimonials Section Component
+// 3. Main Testimonials Section Component
 // ==========================================
 export default function TestimonialsSection() {
   // Autoplay Plugin Instance (3 seconds per slide, smooth auto-play)

@@ -59,9 +59,9 @@ const ValueCard = ({ icon: Icon, title, description }: ValuePropItem) => {
       </div>
 
       {/* Card Title: 20px, Semibold, #181C1C */}
-      <h3 className="text-[20px] font-semibold text-[#181C1C] leading-[1.3] mb-3">
+      <h2 className="text-[20px] font-semibold text-[#181C1C] leading-[1.3] mb-3">
         {title}
-      </h3>
+      </h2>
 
       {/* Card Description: 16px, Regular, #3E4947 */}
       <p className="text-[16px] font-normal text-[#3E4947] leading-[1.6]">
@@ -76,7 +76,7 @@ const ValueCard = ({ icon: Icon, title, description }: ValuePropItem) => {
 // ==========================================
 export default function ValuePropsSection() {
   return (
-    <section className="bg-[#f8faf9] py-16 lg:py-24">
+    <section className="bg-[#F1F4F3] py-16 lg:py-24">
       <Container>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {valuePropsData.map((item) => (

@@ -77,7 +77,7 @@ const SymptomInputCard = () => {
           className="w-full rounded-2xl border border-gray-200 p-4 text-sm sm:text-base text-[#181C1C] placeholder:text-gray-400 resize-none pr-28"
         />
         {/* Speech Indicator */}
-        <div className="absolute bottom-3 right-3 flex items-center gap-1 text-xs text-gray-400 font-normal pointer-events-none">
+        <div className="absolute bottom-3 right-3 flex items-center gap-1 text-xs text-[#475250] font-normal pointer-events-none">
           <Mic className="w-3.5 h-3.5" />
           <span>Speech ready</span>
         </div>
@@ -94,7 +94,7 @@ const SymptomInputCard = () => {
       </CustomButton>
 
       {/* Footer Text */}
-      <p className="text-center text-xs text-gray-500 font-normal mt-4">
+      <p className="text-center text-xs text-[#475250] font-normal mt-4">
         Your data is processed securely and privately.
       </p>
     </div>

@@ -33,10 +33,10 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-12">
           {/* Brand Info */}
           <div className="flex flex-col gap-2">
-            <h3 className="text-xl sm:text-2xl font-bold text-[#181C1C] tracking-tight">
+            <p className="text-xl sm:text-2xl font-bold text-[#181C1C] tracking-tight">
               HealthFlow
-            </h3>
-            <p className="text-xs sm:text-sm text-[#5C6563] font-normal leading-relaxed max-w-[280px]">
+            </p>
+            <p className="text-xs sm:text-sm text-[#475250] font-normal leading-relaxed max-w-[280px]">
               © 2026 HealthFlow Medical Group. All rights reserved.
             </p>
           </div>

@@ -45,7 +45,7 @@ const SpecialtyCard = ({ name, icon: Icon }: SpecialtyItem) => {
 // ==========================================
 export default function SpecialtiesSection() {
   return (
-    <section className="bg-white py-16 lg:py-24">
+    <section className="bg-[#F7FAF8] py-16 lg:py-24">
       <Container>
         {/* Header Section */}
         <SectionHeader
