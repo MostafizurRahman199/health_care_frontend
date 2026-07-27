@@ -40,9 +40,7 @@ const buttonVariants = cva(
   }
 )
 
-export interface ButtonProps
-  extends ButtonPrimitive.Props,
-    VariantProps<typeof buttonVariants> {}
+export type ButtonProps = ButtonPrimitive.Props & VariantProps<typeof buttonVariants>;
 
 function Button({
   className,
