@@ -122,12 +122,13 @@ const doctorsData: Doctor[] = [
 // ==========================================
 // 2. Reusable Doctor Card Component
 // ==========================================
+
 const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
   return (
     <div className="w-full max-w-[384px] h-full bg-white rounded-[24px] sm:rounded-[32px] border border-gray-200/90 p-5 sm:p-6 flex flex-col justify-between shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.05)] transition-all duration-300">
       <div>
         {/* Doctor Image Container */}
-        <div className="relative w-full h-[320px] sm:h-[441.5px] rounded-[18px] sm:rounded-[18px] overflow-hidden mb-4 sm:mb-5 bg-gray-100">
+        <div className="relative w-full h-[320px] sm:h-[441.5px] rounded-[18px] sm:rounded-[24px] overflow-hidden mb-4 sm:mb-5 bg-gray-100">
           <Image
             src={doctor.image}
             alt={doctor.name}
@@ -189,13 +190,24 @@ const DoctorCard = ({ doctor }: { doctor: Doctor }) => {
         </div>
       </div>
 
-      {/* Book Appointment CustomButton */}
-      <CustomButton
-        customVariant="primary"
-        className="w-full h-11 sm:h-12 bg-[#005C55] hover:bg-[#004843] rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold text-white transition-colors duration-200"
-      >
-        Book Appointment
-      </CustomButton>
+      {/* Action Buttons */}
+      <div className="flex flex-col gap-2 sm:gap-2.5">
+        {/* Book Appointment Primary Button */}
+        <CustomButton
+          customVariant="primary"
+          className="w-full h-11 sm:h-12 bg-[#005C55] hover:bg-[#004843] rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold text-white transition-colors duration-200"
+        >
+          Book Appointment
+        </CustomButton>
+
+        {/* View Profile Secondary Button */}
+        <CustomButton
+          customVariant="secondary-outline"
+          className="w-full h-11 sm:h-12 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold text-gray-700 hover:text-gray-900 border-gray-300 hover:bg-gray-50 transition-colors duration-200"
+        >
+          View Profile
+        </CustomButton>
+      </div>
     </div>
   );
 };

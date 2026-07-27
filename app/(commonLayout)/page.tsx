@@ -7,20 +7,27 @@ import StatsSection from "@/components/modules/Home/StatsSection";
 import TestimonialsSection from "@/components/modules/Home/TestimonialsSection";
 import TopRatedDoctors from "@/components/modules/Home/TopRatedDoctors";
 import ValuePropsSection from "@/components/modules/Home/ValuePropsSection";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "AI Powered - Health Flow",
+  description: "Health Care System",
+  keywords: ["Health Care", "AI", "Health Flow"],
+  authors: [{ name: "AI Powered - Health Flow" }],
+};
 
 export default function Home() {
   return (
-   <div>
-      <HeroSection/>
-      <ValuePropsSection/>
-      <SpecialtiesSection/>
-      <TopRatedDoctors/>
+    <main>
+      <HeroSection />
+      <ValuePropsSection />
+      <SpecialtiesSection />
+      <TopRatedDoctors />
       <AISuggestionSection/>
-      <HowItWorksSection/>
-      <StatsSection/>
-      <TestimonialsSection/>
-      <CTASection/>
-   </div>
+      <HowItWorksSection />
+      <StatsSection />
+      <TestimonialsSection />
+      <CTASection />
+    </main>
   );
 }
