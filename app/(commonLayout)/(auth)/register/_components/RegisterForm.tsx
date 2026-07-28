@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useActionState, useRef } from "react";
+import { useState, useActionState, useRef, useEffect } from "react";
 import Link from "next/link";
 import {
   Mail,
@@ -25,22 +25,23 @@ export function RegisterForm() {
   const [password, setPassword] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [photoName, setPhotoName] = useState<string | null>(null);
-  const [state, formAction, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
-      try {
-        const res = await registerPatient(formData);
-        toast.success("Patient registered successfully!");
-        // Add redirect or other success handling here
-        return { success: true, data: res };
-      } catch (error) {
-        console.error(error);
-        const errMsg = error instanceof Error ? error.message : "Unknown error";
-        toast.error(`Registration failed: ${errMsg}`);
-        return { success: false, error: errMsg };
+  const [state, formAction, isPending] = useActionState(registerPatient, {
+    success: false,
+  });
+
+  useEffect(() => {
+    if (state.message) {
+      if (state.success) {
+        toast.success(state.message);
+        const timer = setTimeout(() => {
+          window.location.href = "/login";
+        }, 1500);
+        return () => clearTimeout(timer);
+      } else {
+        toast.error(state.message);
       }
-    },
-    null
-  );
+    }
+  }, [state]);
 
   const handlePhotoClick = () => {
     fileInputRef.current?.click();
@@ -112,6 +113,9 @@ export function RegisterForm() {
             leftIcon={<User className="w-5 h-5" />}
             required
             minLength={2}
+            defaultValue={state.inputs?.name || ""}
+            error={state.errors?.name?.[0]}
+            disabled={isPending}
           />
 
           {/* Email and Phone Grid */}
@@ -124,6 +128,9 @@ export function RegisterForm() {
               placeholder="john@example.com"
               leftIcon={<Mail className="w-5 h-5" />}
               required
+              defaultValue={state.inputs?.email || ""}
+              error={state.errors?.email?.[0]}
+              disabled={isPending}
             />
             <CustomInput
               id="tel"
@@ -134,6 +141,9 @@ export function RegisterForm() {
               leftIcon={<Phone className="w-5 h-5" />}
               required
               minLength={10}
+              defaultValue={state.inputs?.contactNumber || ""}
+              error={state.errors?.contactNumber?.[0]}
+              disabled={isPending}
             />
           </div>
 
@@ -151,6 +161,7 @@ export function RegisterForm() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
+                disabled={isPending}
                 className="text-gray-400 hover:text-gray-700 focus:outline-none"
               >
                 {showPassword ? (
@@ -164,6 +175,8 @@ export function RegisterForm() {
             minLength={8}
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number."
+            error={state.errors?.password?.[0]}
+            disabled={isPending}
           />
 
           {/* Address Field */}
@@ -173,11 +186,14 @@ export function RegisterForm() {
             label="Residential Address"
             placeholder="Enter full street address, city, and zip code"
             rows={2}
+            defaultValue={state.inputs?.address || ""}
+            error={state.errors?.address?.[0]}
+            disabled={isPending}
           />
 
           {/* Terms and Conditions */}
           <div className="flex items-start gap-2 py-1">
-            <Checkbox id="terms" name="terms" required className="mt-0.5 border-[#bdc9c6] shrink-0" />
+            <Checkbox id="terms" name="terms" required className="mt-0.5 border-[#bdc9c6] shrink-0" disabled={isPending} />
             <label
               htmlFor="terms"
               className="block text-xs text-[#3e4947] font-normal leading-relaxed cursor-pointer"
@@ -193,6 +209,9 @@ export function RegisterForm() {
               . I understand how my health data is processed.
             </label>
           </div>
+          {state.errors?.terms && (
+            <p className="text-xs text-red-500 mt-1">{state.errors.terms[0]}</p>
+          )}
 
           {/* Submit Action using CustomButton */}
           <CustomButton type="submit" isLoading={isPending} className="w-full">
