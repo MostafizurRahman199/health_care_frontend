@@ -11,6 +11,7 @@ export function HeroSection() {
           alt="Healthcare Professional"
           fill
           priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover opacity-25 scale-105 hover:scale-100 transition-transform duration-[10000ms]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#005c55] via-[#005c55]/70 to-transparent" />
