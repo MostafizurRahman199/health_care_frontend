@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { HeartPulse, Baby, Brain, Bone, Sparkles } from "lucide-react";
+import { HeartPulse, Baby, Brain, Bone, Sparkles, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { SectionHeader } from "@/components/ui/section-header";
 
@@ -47,11 +48,25 @@ export default function SpecialtiesSection() {
   return (
     <section className="bg-[#F7FAF8] py-16 lg:py-24">
       <Container>
-        {/* Header Section */}
-        <SectionHeader
-          title="Our Medical Specialties"
-          description="We connect you with world-class specialists across a wide range of medical fields."
-        />
+        {/* Header with Left-Aligned Title & Right-Aligned Link */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <SectionHeader
+            title="Our Medical Specialties"
+            description="We connect you with world-class specialists across a wide range of medical fields."
+            className="mb-0 sm:mb-0 max-w-2xl"
+          />
+
+          <div className="flex items-center gap-6 self-start md:self-auto pb-1">
+            {/* View All Specialties Link */}
+            <Link
+              href="/specialties"
+              className="group flex items-center gap-2 text-sm font-bold text-[#005C55] hover:text-[#004843] transition-colors"
+            >
+              <span>View All Specialties</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </div>
 
         {/* Specialties Grid (5 Columns) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5 sm:gap-6">

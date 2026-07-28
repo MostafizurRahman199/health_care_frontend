@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useRef } from "react";
+import { useState, useActionState, useRef } from "react";
 import Link from "next/link";
 import {
   Mail,
@@ -23,9 +23,24 @@ import { toast } from "sonner";
 export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const [isPending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [photoName, setPhotoName] = useState<string | null>(null);
+  const [state, formAction, isPending] = useActionState(
+    async (prevState: any, formData: FormData) => {
+      try {
+        const res = await registerPatient(formData);
+        toast.success("Patient registered successfully!");
+        // Add redirect or other success handling here
+        return { success: true, data: res };
+      } catch (error) {
+        console.error(error);
+        const errMsg = error instanceof Error ? error.message : "Unknown error";
+        toast.error(`Registration failed: ${errMsg}`);
+        return { success: false, error: errMsg };
+      }
+    },
+    null
+  );
 
   const handlePhotoClick = () => {
     fileInputRef.current?.click();
@@ -35,23 +50,6 @@ export function RegisterForm() {
     if (e.target.files && e.target.files.length > 0) {
       setPhotoName(e.target.files[0].name);
     }
-  };
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
-    startTransition(async () => {
-      try {
-        await registerPatient(formData);
-        toast.success("Patient registered successfully!");
-        // Add redirect or other success handling here
-      } catch (error) {
-        console.error(error);
-        toast.error(`Registration failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-        // Add error handling here
-      }
-    });
   };
 
   return (
@@ -69,7 +67,7 @@ export function RegisterForm() {
         </header>
 
         {/* Form Elements */}
-        <form onSubmit={onSubmit} className="space-y-4">
+        <form action={formAction} className="space-y-4">
           {/* Profile Photo Upload */}
           <div className="space-y-1.5">
             <Label className="text-sm font-semibold text-[#181c1c]">

@@ -227,7 +227,6 @@ export default function TopRatedDoctors() {
         {/* Header with Left-Aligned Title & Right-Aligned Link */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <SectionHeader
-            align="left"
             title="Top Rated Doctors"
             description="Connect with our most highly-recommended specialists based on thousands of patient reviews."
             className="mb-0 sm:mb-0 max-w-2xl"

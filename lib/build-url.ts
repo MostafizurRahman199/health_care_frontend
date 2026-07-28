@@ -5,6 +5,8 @@
 export const apiEndpoints = {
   auth: {
     registerPatient: "/user/create-patient",
+    userLogin: "/auth/login",
+    
     // Add other auth-related endpoints here (e.g., login, resetPassword)
   },
   // Add other feature domains here as the project grows
@@ -18,7 +20,11 @@ export const apiEndpoints = {
  * @returns The fully qualified URL string
  */
 export const buildUrl = (path: string): string => {
-  const backendBaseUrl = process.env.backend_base_url || "";
+  const backendBaseUrl =
+    process.env.NEXT_PUBLIC_BACKEND_BASE_URL ||
+    process.env.BACKEND_BASE_URL ||
+    process.env.backend_base_url ||
+    "http://localhost:5000/api/v1";
   
   // Ensure we don't have double slashes by removing trailing slashes from the base
   // and leading slashes from the path before joining them.
