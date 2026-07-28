@@ -18,6 +18,7 @@ import { CustomInput } from "@/components/ui/custom-input";
 import { CustomButton } from "@/components/ui/custom-button";
 import { CustomTextarea } from "@/components/ui/CustomTextarea";
 import { registerPatient } from "@/service/auth/registerPatient";
+import { toast } from "sonner";
 
 export function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -43,11 +44,11 @@ export function RegisterForm() {
     startTransition(async () => {
       try {
         await registerPatient(formData);
-        alert("Patient registered successfully!");
+        toast.success("Patient registered successfully!");
         // Add redirect or other success handling here
       } catch (error) {
         console.error(error);
-        alert(`Registration failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        toast.error(`Registration failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
         // Add error handling here
       }
     });

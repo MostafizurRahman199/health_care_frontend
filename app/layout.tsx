@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope} from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 // 1. Initialize the font
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang="en" className={`${manrope.variable} font-sans`} suppressHydrationWarning>
       <body className={manrope.className} suppressHydrationWarning>
         {children}
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );
