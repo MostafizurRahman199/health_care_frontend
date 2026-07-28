@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 import { ShieldCheck, Stethoscope } from "lucide-react";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { Container } from "@/components/ui/container";
 import { HeroSection } from "./_components/HeroSection";
 import { RegisterForm } from "./_components/RegisterForm";

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   Mail,
@@ -34,12 +34,6 @@ export function RegisterForm() {
               Create your secure patient account to start.
             </p>
           </div>
-          <Link
-            href="#"
-            className="text-xs font-semibold text-[#005c55] hover:underline"
-          >
-            Support
-          </Link>
         </header>
 
         {/* Form Elements */}
@@ -162,20 +156,6 @@ export function RegisterForm() {
             Login
           </Link>
         </p>
-
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-[#3e4947]/80">
-          <Link href="#" className="hover:text-[#005c55]">
-            Privacy Policy
-          </Link>
-          <span>•</span>
-          <Link href="#" className="hover:text-[#005c55]">
-            Terms of Service
-          </Link>
-          <span>•</span>
-          <Link href="#" className="hover:text-[#005c55]">
-            Patient Rights
-          </Link>
-        </div>
       </div>
     </>
   );
