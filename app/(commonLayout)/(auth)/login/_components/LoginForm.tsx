@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useActionState } from "react";
+import React, { useState, useActionState, useEffect } from "react";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
@@ -13,22 +13,24 @@ import { loginUser } from "@/service/auth/loginUser";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [state, formAction, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
-      try {
-        await loginUser(formData);
-        toast.success("Logged in successfully!");
-        window.location.href = "/";
-        return { success: true };
-      } catch (error) {
-        console.error(error);
-        const errMsg = error instanceof Error ? error.message : "Unknown error";
-        toast.error(`Login failed: ${errMsg}`);
-        return { success: false, error: errMsg };
+  const [state, formAction, isPending] = useActionState(loginUser, {
+    success: false,
+  });
+
+  useEffect(() => {
+    if (state.message) {
+      if (state.success) {
+        toast.success(state.message);
+        const timer = setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+        return () => clearTimeout(timer);
+      } else {
+        toast.error(state.message);
       }
-    },
-    null
-  );
+    }
+  }, [state]);
+
   
   return (
     <div className="transition-all duration-300">
@@ -48,7 +50,8 @@ export function LoginForm() {
           type="email"
           label="Email Address"
           placeholder="e.g. name@example.com"
-          // defaultValue="admin@example.com"
+          defaultValue={state.inputs?.email || ""}
+          error={state.errors?.email?.[0]}
           leftIcon={<Mail className="w-5 h-5" />}
           disabled={isPending}
         />
@@ -68,7 +71,7 @@ export function LoginForm() {
             name="password"
             type={showPassword ? "text" : "password"}
             placeholder="••••••••"
-            // defaultValue="Password1"
+            error={state.errors?.password?.[0]}
             disabled={isPending}
             leftIcon={<Lock className="w-5 h-5" />}
             rightIcon={

@@ -28,7 +28,15 @@ export async function setCookiesFromResponse(response: Response): Promise<void> 
     const name = nameValue.slice(0, eqIdx);
     const value = nameValue.slice(eqIdx + 1);
 
-    const options: any = {};
+    const options: {
+      path?: string;
+      domain?: string;
+      maxAge?: number;
+      expires?: Date;
+      httpOnly?: boolean;
+      secure?: boolean;
+      sameSite?: "lax" | "strict" | "none";
+    } = {};
     for (const attr of attrs) {
       const [attrName, attrVal] = attr.split("=");
       const nameKey = attrName.trim().toLowerCase();

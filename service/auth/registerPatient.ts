@@ -10,7 +10,7 @@ export interface RegisterState {
   inputs?: Record<string, string>;
 }
 
-export async function registerPatient(prevState: any, formData: FormData): Promise<RegisterState> {
+export async function registerPatient(prevState: unknown, formData: FormData): Promise<RegisterState> {
   const name = formData.get("name");
   const email = formData.get("email");
   const contactNumber = formData.get("contactNumber");
@@ -59,7 +59,7 @@ export async function registerPatient(prevState: any, formData: FormData): Promi
       };
     }
 
-    const data = await response.json();
+    await response.json();
     return {
       success: true,
       message: "Patient registered successfully!",
