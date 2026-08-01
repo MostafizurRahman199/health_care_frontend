@@ -25,6 +25,7 @@ export function RegisterForm() {
   const [password, setPassword] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [photoName, setPhotoName] = useState<string | null>(null);
+  const [termsAccepted, setTermsAccepted] = useState(true);
   const [state, formAction, isPending] = useActionState(registerPatient, {
     success: false,
   });
@@ -193,8 +194,8 @@ export function RegisterForm() {
 
           {/* Terms and Conditions */}
           <div className="flex items-start gap-2 py-1">
-            <Checkbox id="terms" name="terms" required className="mt-0.5 border-[#bdc9c6] shrink-0" disabled={isPending} />
-            <label
+             <Checkbox id="terms" name="terms" required className="mt-0.5 border-[#bdc9c6] shrink-0" checked={termsAccepted} onCheckedChange={(checked) => setTermsAccepted(checked as boolean)} disabled={isPending} />
+             <label
               htmlFor="terms"
               className="block text-xs text-[#3e4947] font-normal leading-relaxed cursor-pointer"
             >
@@ -214,7 +215,7 @@ export function RegisterForm() {
           )}
 
           {/* Submit Action using CustomButton */}
-          <CustomButton type="submit" isLoading={isPending} className="w-full">
+          <CustomButton type="submit" isLoading={isPending} disabled={!termsAccepted} className="w-full">
             Sign Up
           </CustomButton>
         </form>

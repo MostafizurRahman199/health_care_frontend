@@ -22,7 +22,20 @@ export function LoginForm() {
       if (state.success) {
         toast.success(state.message);
         const timer = setTimeout(() => {
-          window.location.href = "/";
+          const urlParams = new URLSearchParams(window.location.search);
+          const redirectParam = urlParams.get("redirect");
+
+          if (redirectParam) {
+            window.location.href = redirectParam;
+          } else {
+            if (state.role === "ADMIN") {
+              window.location.href = "/admin/dashboard";
+            } else if (state.role === "DOCTOR") {
+              window.location.href = "/doctor/dashboard";
+            } else {
+              window.location.href = "/dashboard";
+            }
+          }
         }, 1000);
         return () => clearTimeout(timer);
       } else {

@@ -10,7 +10,7 @@ import { cookies } from "next/headers";
 export async function setCookiesFromResponse(response: Response): Promise<void> {
   // getSetCookie retrieves all Set-Cookie headers from the fetch response
   const setCookieHeaders = response.headers.getSetCookie();
-  console.log("[Cookies Utility] Backend Set-Cookie headers:", setCookieHeaders);
+  // console.log("[Cookies Utility] Backend Set-Cookie headers:", setCookieHeaders);
   
   if (setCookieHeaders.length === 0) {
     console.warn("[Cookies Utility] No Set-Cookie headers found in the response.");

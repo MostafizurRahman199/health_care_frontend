@@ -1,6 +1,7 @@
 "use server";
 
-import { buildUrl, apiEndpoints } from "@/lib/build-url";
+import { apiEndpoints } from "@/lib/build-url";
+import { proxy } from "@/lib/proxy-fetch";
 import { registerSchema } from "@/lib/validation/auth";
 
 export interface RegisterState {
@@ -45,10 +46,7 @@ export async function registerPatient(prevState: unknown, formData: FormData): P
   }
 
   try {
-    const response = await fetch(buildUrl(apiEndpoints.auth.registerPatient), {
-      method: "POST",
-      body: formData,
-    });
+    const response = await proxy.post(apiEndpoints.auth.registerPatient, formData);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);

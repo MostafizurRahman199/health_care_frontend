@@ -1,14 +1,17 @@
 "use server";
 
-import { buildUrl, apiEndpoints } from "@/lib/build-url";
-import { setCookiesFromResponse } from "@/lib/cookies";
+import { apiEndpoints } from "@/lib/build-url";
+import { proxy } from "@/lib/proxy-fetch";
 import { loginSchema } from "@/lib/validation/auth";
+
+import { decodeJwt } from "@/lib/jwt";
 
 export interface LoginState {
   success: boolean;
   errors?: Record<string, string[]>;
   message?: string;
   inputs?: Record<string, string>;
+  role?: string;
 }
 
 export async function loginUser(prevState: unknown, formData: FormData): Promise<LoginState> {
@@ -35,13 +38,7 @@ export async function loginUser(prevState: unknown, formData: FormData): Promise
   }
 
   try {
-    const response = await fetch(buildUrl(apiEndpoints.auth.userLogin), {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await proxy.post(apiEndpoints.auth.userLogin, { email, password });
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
@@ -52,15 +49,29 @@ export async function loginUser(prevState: unknown, formData: FormData): Promise
       };
     }
 
-    // Forward the cookies from the backend response to the client browser
-    await setCookiesFromResponse(response);
-
     // Consume response json
     await response.json();
+
+    // Extract the accessToken cookie to retrieve the user's role
+    let role = "PATIENT";
+    try {
+      const { cookies } = await import("next/headers");
+      const cookieStore = await cookies();
+      const token = cookieStore.get("accessToken")?.value;
+      if (token) {
+        const decoded = decodeJwt(token);
+        if (decoded?.role) {
+          role = decoded.role;
+        }
+      }
+    } catch (cookieErr) {
+      console.warn("[loginUser] Warning: could not access cookies to extract role:", cookieErr);
+    }
 
     return {
       success: true,
       message: "Logged in successfully!",
+      role,
     };
   } catch (error) {
     console.error("Error logging in:", error);
